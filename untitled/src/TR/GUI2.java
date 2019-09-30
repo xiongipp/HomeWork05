@@ -52,15 +52,18 @@ public class GUI2 {
                     Client client=new Client();
                     System.out.println(name);
                     try {
-                        client.getNameAndCommand(name,"login");
-                        client.getResponse();
-                        if(client.getResponse().equals("用户存在允许登录")){
-                            textArea1.setText("登录啦！");
-                        }else {
-                            textArea1.setText(client.getResponse());
-                        }
+                        client.Login(name,"login");
                     } catch (IOException e) {
                         e.printStackTrace();
+                    }
+                    client.getResponse();
+                    if(client.getResponse().equals("用户存在允许登录")){
+                        textArea1.setText("登录啦！");
+                        ChatForm chatForm=new ChatForm();
+                        chatForm.initChatFrame();
+                        chatForm.getCli(client);
+                    }else {
+                        textArea1.setText(client.getResponse());
                     }
                 }
 

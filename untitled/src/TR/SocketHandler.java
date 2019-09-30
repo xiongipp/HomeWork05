@@ -9,9 +9,7 @@ import java.util.*;
 
 public class SocketHandler implements Runnable{
     private Socket socket;
-    private static String[] name={"","","",""};//最多设四个用户
-    static List<String> nameList=new LinkedList<>();;
-
+    static List<String> nameList=new LinkedList<>();
     public SocketHandler(Socket socket) {
         this.socket = socket;
     }
@@ -21,9 +19,10 @@ public class SocketHandler implements Runnable{
             InputStreamReader reader = new InputStreamReader(socket.getInputStream());
             BufferedReader bufferedReader = new BufferedReader(reader);
             PrintWriter writer = new PrintWriter(socket.getOutputStream());
-            String str = bufferedReader.readLine();
 
+            String str = bufferedReader.readLine();
             System.out.println("来自客户端" + str);
+            if(str.contains(",")){
             String[] nac = str.split(",");//把信息用‘，’分割开，获取到名字还有指令
             String uName = nac[0];
             String command = nac[1];
@@ -48,6 +47,13 @@ public class SocketHandler implements Runnable{
                 }else {
                 writer.println("用户不存在，请检查用户名后重试");
                 }
+                writer.flush();
+                writer.close();
+                bufferedReader.close();
+                socket.close();
+            }
+            }else {
+                writer.println(str);
             }
                 writer.flush();
                 writer.close();
