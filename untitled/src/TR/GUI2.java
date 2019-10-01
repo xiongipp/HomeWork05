@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.net.Socket;
 
 public class GUI2 {
     private JPanel jp;
@@ -12,6 +13,13 @@ public class GUI2 {
     private JTextArea textArea1;
     private JButton login_Button;
     private String name;
+
+
+    public void setSocket(Socket socket) {
+        this.socket = socket;
+    }
+
+    private Socket socket;
 
     public GUI2() {
         //注册按钮添加事件监听
@@ -22,7 +30,12 @@ public class GUI2 {
                 if(name.equals("")){
                     textArea1.setText("你的注册名字不能为空");
                 }else{
-                    Client client=new Client();
+                    Client client= null;
+                    try {
+                        client = new Client();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     System.out.println(name);
                     try {
                         client.getNameAndCommand(name,"register");
@@ -49,24 +62,33 @@ public class GUI2 {
                 if(name.equals("")){
                     textArea1.setText("用户名不能为空!");
                 }else {
-                    Client client=new Client();
+                    Client client= null;
+                    try {
+                        client = new Client();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     System.out.println(name);
                     try {
                         client.Login(name,"login");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    client.getResponse();
                     if(client.getResponse().equals("用户存在允许登录")){
-                        textArea1.setText("登录啦！");
-                        ChatForm chatForm=new ChatForm();
-                        chatForm.initChatFrame();
-                        chatForm.getCli(client);
-                    }else {
+                      textArea1.setText("登录啦！");
+                        try {
+                            ChatForm chatForm = new ChatForm();
+                            chatForm.getCli(client);
+                            chatForm.initChatFrame();
+                        }
+                        catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                }else
+                    {
                         textArea1.setText(client.getResponse());
                     }
                 }
-
             }
         });
     }

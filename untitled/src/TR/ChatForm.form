@@ -2,7 +2,7 @@
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="TR.ChatForm">
   <grid id="27dc6" binding="JP1" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
     <constraints>
-      <xy x="125" y="75" width="410" height="345"/>
+      <xy x="26" y="36" width="716" height="441"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -10,6 +10,8 @@
       <component id="b397b" class="javax.swing.JLabel" binding="label1">
         <constraints/>
         <properties>
+          <horizontalAlignment value="10"/>
+          <horizontalTextPosition value="2"/>
           <text value="聊天内容"/>
         </properties>
       </component>
@@ -19,18 +21,19 @@
           <preferredSize width="400" height="100"/>
         </properties>
       </component>
-      <component id="c6d20" class="javax.swing.JLabel" binding="label2">
-        <constraints/>
-        <properties>
-          <text value="输入框"/>
-        </properties>
-      </component>
       <component id="b6cb1" class="javax.swing.JTextField" binding="textField_send">
         <constraints/>
         <properties>
           <alignmentX value="1.0"/>
           <alignmentY value="1.0"/>
           <preferredSize width="400" height="100"/>
+        </properties>
+      </component>
+      <component id="c6d20" class="javax.swing.JLabel" binding="label2">
+        <constraints/>
+        <properties>
+          <horizontalAlignment value="10"/>
+          <text value="输入框"/>
         </properties>
       </component>
       <component id="c0a59" class="javax.swing.JButton" binding="send">
